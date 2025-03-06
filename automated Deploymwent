@@ -1,1 +1,107 @@
 
+Creating a step by step guide to create automated deployment using maven and mulesoft maven plugin for cloudhub2.0.
+Step 1: Set Up the Maven Project
+Create a Mule Application Project (If not already created):
+
+If you don’t have a Mule application yet, you can create one using Anypoint Studio or Maven Archetypes.
+Run the following command to create a new Mule project using Maven:
+
+bash
+Copy
+Edit
+mvn archetype:generate -DgroupId=com.example -DartifactId=my-mule-app -DarchetypeArtifactId=mule-archetype-application -DinteractiveMode=false
+Navigate to the Project Directory:
+
+bash
+Copy
+Edit
+cd my-mule-app
+Step 2: Add the MuleSoft Maven Plugin to pom.xml
+Add the MuleSoft Maven Plugin to your pom.xml:
+
+In the <plugins> section of your pom.xml, add the Mule Maven Plugin:
+
+xml
+Copy
+Edit
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.mule.tools</groupId>
+            <artifactId>mule-maven-plugin</artifactId>
+            <version>3.9.0</version> <!-- Use the latest version -->
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>deploy</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
+Configure the Maven Plugin with your CloudHub 2.0 deployment details: In the plugin section, set up the required configuration parameters to connect with CloudHub.
+
+Add the following configuration inside the <configuration> section:
+
+xml
+Copy
+Edit
+<configuration>
+    <username>${mule.username}</username>
+    <password>${mule.password}</password>
+    <environment>${mule.environment}</environment>
+    <region>${mule.region}</region>
+    <appName>${mule.app.name}</appName>
+    <runtime>${mule.runtime}</runtime>
+    <domain>${mule.domain}</domain>
+    <workerSize>${mule.worker.size}</workerSize>
+</configuration>
+Here’s an explanation of each property:
+
+username and password: MuleSoft credentials (these can be stored as Maven properties).
+environment: CloudHub environment (e.g., sandbox or production).
+region: CloudHub region (e.g., us-east-1).
+appName: The name of your application on CloudHub.
+runtime: The Mule runtime version (e.g., 4.3.0).
+domain: The domain name of your application.
+workerSize: The size of the worker (e.g., Small, Medium, Large).
+Step 3: Add Your Maven Properties
+Add the required properties to pom.xml (if you don't want to hard-code values):
+
+You can define properties in your pom.xml file or externalize them into a settings.xml file:
+
+xml
+Copy
+Edit
+<properties>
+    <mule.username>your-username</mule.username>
+    <mule.password>your-password</mule.password>
+    <mule.environment>production</mule.environment>
+    <mule.region>us-east-1</mule.region>
+    <mule.app.name>my-mule-app</mule.app.name>
+    <mule.runtime>4.3.0</mule.runtime>
+    <mule.domain>my-app-domain</mule.domain>
+    <mule.worker.size>Medium</mule.worker.size>
+</properties>
+Alternatively, you can use Maven profiles or store these credentials in settings.xml for more security and flexibility.
+
+Step 4: Deploy the Application
+Run Maven Command to Deploy to CloudHub:
+
+In the project’s root directory, use the following Maven command to deploy the application to CloudHub:
+
+bash
+Copy
+Edit
+mvn clean install mule:deploy
+The mvn clean install command will build the application.
+The mule:deploy goal will deploy the built application to CloudHub.
+Check Deployment Status:
+
+After deployment, you can check the status in the Anypoint Platform console under CloudHub > Applications.
+Alternatively, you can use the following command to check the application status:
+bash
+Copy
+Edit
+mvn mule:status
