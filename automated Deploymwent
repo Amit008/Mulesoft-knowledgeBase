@@ -1,6 +1,7 @@
 
 Creating a step by step guide to create automated deployment using maven and mulesoft maven plugin for cloudhub2.0.
 Step 1: Set Up the Maven Project
+-------------------------------------------------
 Create a Mule Application Project (If not already created):
 
 If you don’t have a Mule application yet, you can create one using Anypoint Studio or Maven Archetypes.
@@ -16,6 +17,7 @@ bash
 Copy
 Edit
 cd my-mule-app
+-------------------------------------------------
 Step 2: Add the MuleSoft Maven Plugin to pom.xml
 Add the MuleSoft Maven Plugin to your pom.xml:
 
@@ -66,6 +68,7 @@ appName: The name of your application on CloudHub.
 runtime: The Mule runtime version (e.g., 4.3.0).
 domain: The domain name of your application.
 workerSize: The size of the worker (e.g., Small, Medium, Large).
+-------------------------------------------------------------
 Step 3: Add Your Maven Properties
 Add the required properties to pom.xml (if you don't want to hard-code values):
 
@@ -85,7 +88,7 @@ Edit
     <mule.worker.size>Medium</mule.worker.size>
 </properties>
 Alternatively, you can use Maven profiles or store these credentials in settings.xml for more security and flexibility.
-
+-----------------------------------------------------------------
 Step 4: Deploy the Application
 Run Maven Command to Deploy to CloudHub:
 
